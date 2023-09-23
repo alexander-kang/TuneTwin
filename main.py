@@ -3,6 +3,9 @@ from flask import Flask, request, redirect, g, render_template
 import requests
 from urllib.parse import quote
 from api_keys import CLIENT_ID, CLIENT_SECRET
+from util.seatgeek import getSeatGeekData
+import concurrent.futures
+
 
 # Authentication Steps, paramaters, and responses are defined at https://developer.spotify.com/web-api/authorization-guide/
 # Visit this url to see all the steps, parameters, and expected response.
@@ -14,6 +17,7 @@ SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 SPOTIFY_API_BASE_URL = "https://api.spotify.com"
 API_VERSION = "v1"
 SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
+AUTHORIZATION_HEADER = None
 
 # Server-side Parameters
 CLIENT_SIDE_URL = "http://127.0.0.1"
@@ -43,6 +47,9 @@ def index():
     return redirect(auth_url)
 
 
+
+
+
 @app.route("/callback/q")
 def callback():
     # Auth Step 4: Requests refresh and access tokens
@@ -64,31 +71,33 @@ def callback():
     expires_in = response_data["expires_in"]
 
     # Auth Step 6: Use the access token to access Spotify API
-    authorization_header = {"Authorization": "Bearer {}".format(access_token)}
+    global AUTHORIZATION_HEADER
+    AUTHORIZATION_HEADER = {"Authorization": "Bearer {}".format(access_token)}
+    return "success!"
 
-    # Get profile data
-    user_profile_api_endpoint = "{}/me".format(SPOTIFY_API_URL)
-    profile_response = requests.get(
-        user_profile_api_endpoint, headers=authorization_header)
-    profile_data = json.loads(profile_response.text)
-
-    # Get user playlist data
-    playlist_api_endpoint = "{}/playlists".format(profile_data["href"])
-    playlists_response = requests.get(
-        playlist_api_endpoint, headers=authorization_header)
-    playlist_data = json.loads(playlists_response.text)
+@app.route("/getYourArtists")
+def getYourArtists():
 
     # Get user artist data
     user_top_artists_api_endpoint = "{}/me/top/artists".format(SPOTIFY_API_URL)
     top_artists_response = requests.get(
-        user_top_artists_api_endpoint, headers=authorization_header)
+        user_top_artists_api_endpoint, headers=AUTHORIZATION_HEADER)
+    print(top_artists_response.text)
     top_artists_data = json.loads(top_artists_response.text)
 
     # Combine profile and playlist data to display
     # display_arr = [profile_data] + \
     #     playlist_data["items"] + top_artists_data["items"]
     display_arr = [t['name'] for t in top_artists_data["items"]]
-    return render_template("index.html", sorted_array=display_arr)
+    num_threads = 4
+    state = ["TX"]*len(display_arr)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
+        # Use the map function to apply the fetch_url function to each URL in parallel
+        results = list(executor.map(getSeatGeekData, display_arr, state))
+
+    return {"results": results}
+
+
 
 
 if __name__ == "__main__":
