@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Button } from 'react-native'
 
-const continueButton = () => {
+const ContinueButton = () => {
     function handleContinue() {
         <Link to="/dashboard"></Link>
     }
@@ -14,4 +14,4 @@ const continueButton = () => {
 
 }
 
-export default continueButton
+export default ContinueButton
