@@ -87,11 +87,13 @@ def callback():
 
 @app.route("/getYourArtists")
 def getYourArtists():
+    id = request.args.get('id')
+    authorization_header = AUTHORIZATION_HEADER[id]
 
     # Get user artist data
     user_top_artists_api_endpoint = "{}/me/top/artists".format(SPOTIFY_API_URL)
     top_artists_response = requests.get(
-        user_top_artists_api_endpoint, headers=AUTHORIZATION_HEADER)
+        user_top_artists_api_endpoint, headers=authorization_header)
     print(top_artists_response.text)
     top_artists_data = json.loads(top_artists_response.text)
 
