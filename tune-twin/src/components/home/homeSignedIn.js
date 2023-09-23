@@ -1,12 +1,12 @@
 import React from 'react'
-import navBarSignedIn from '../navBar/navBarSignedIn'
-import continueButton from './continueButton'
-import footer from '../footer/footer'
+import NavBarSignedIn from '../navBar/navBarSignedIn'
+import ContinueButton from './continueButton'
+import Footer from '../footer/footer'
 
-const landingPageSignedIn = () => {
+const LandingPageSignedIn = () => {
     return (
         <div>
-            <navBarSignedIn/>
+            <NavBarSignedIn/>
 
             <div className="home-content">
                 <div className="home-content-flex">
@@ -18,11 +18,11 @@ const landingPageSignedIn = () => {
                 <p>Add friends on TuneTwin to find live music events compatible with your group's music tastes near you!</p>
             </div>
 
-            <continueButton/>
+            <ContinueButton/>
 
-            <footer/>
+            <Footer/>
         </div>
     )
 }
 
-export default landingPageSignedIn
+export default LandingPageSignedIn

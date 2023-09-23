@@ -1,6 +1,6 @@
 import { Button } from 'react-native'
 
-const loginButton = () => {
+const LoginButton = () => {
     function handleLogin() {
         window.open('/login', '_blank', 'height=585, width=500')
     }
@@ -13,4 +13,4 @@ const loginButton = () => {
 
 }
 
-export default loginButton
+export default LoginButton

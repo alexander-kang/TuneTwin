@@ -1,6 +1,6 @@
 import React from 'react'
 
-const navBarSignedIn = () => {
+const NavBarSignedIn = () => {
   return (
     <nav className="navbar">
         <div className="logo">TuneTwin</div>
@@ -8,4 +8,4 @@ const navBarSignedIn = () => {
   )
 }
 
-export default navBarSignedIn
+export default NavBarSignedIn
