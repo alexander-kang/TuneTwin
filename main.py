@@ -17,7 +17,7 @@ SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 SPOTIFY_API_BASE_URL = "https://api.spotify.com"
 API_VERSION = "v1"
 SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
-AUTHORIZATION_HEADER = None
+AUTHORIZATION_HEADER = {}
 
 # Server-side Parameters
 CLIENT_SIDE_URL = "http://127.0.0.1"
@@ -71,9 +71,19 @@ def callback():
     expires_in = response_data["expires_in"]
 
     # Auth Step 6: Use the access token to access Spotify API
+
+    authorization_header = {"Authorization": "Bearer {}".format(access_token)}
+
+    user_profile_api_endpoint = "{}/me".format(SPOTIFY_API_URL)
+    profile_response = requests.get(
+        user_profile_api_endpoint, headers=authorization_header)
+    profile_data = json.loads(profile_response.text)
+    userID = profile_data["id"]
     global AUTHORIZATION_HEADER
-    AUTHORIZATION_HEADER = {"Authorization": "Bearer {}".format(access_token)}
-    return "success!"
+    AUTHORIZATION_HEADER[userID] = authorization_header
+    print(AUTHORIZATION_HEADER)
+
+    return userID
 
 @app.route("/getYourArtists")
 def getYourArtists():
