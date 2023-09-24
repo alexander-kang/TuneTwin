@@ -103,7 +103,7 @@ def callback():
     AUTHORIZATION_HEADER[email] = authorization_header
     # print(AUTHORIZATION_HEADER)
 
-    upsertUser(email)
+    #upsertUser(email)
 
     # return userID
     return redirect("http://localhost:3000/yourArtists")
