@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { EmailContext } from './emailContext';
+import './email.css'
 
 function EmailInput() {
   const { email, updateEmail } = useContext(EmailContext);
@@ -19,61 +20,29 @@ function EmailInput() {
     setIsSubmitted(true);
     sessionStorage.setItem('email',  email);
 
-    // Redirect the user to Google
+    // Redirect the user to next page
     window.location.href = `http://127.0.0.1:8080/?email=${email}`;
-  };
-
-  const inputStyles = {
-    width: '100%',
-    padding: '10px',
-    marginTop: '10px',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    fontSize: '16px',
-  };
-
-  const buttonStyles = {
-    display: 'inline-block',
-    marginTop: '10px',
-    padding: '10px 20px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    fontSize: '16px',
-    cursor: 'pointer',
-  };
-
-  const submittedStyles = {
-    marginTop: '20px',
-    fontSize: '16px',
-    color: '#333',
-    fontWeight: 'bold',
-  };
+  }
 
   return (
-    <div>
-      <h2 style={{ fontSize: '24px', marginBottom: '10px', color: '#333' }}>
+    <div className="email-content">
+      <h2>
         Enter Your Email
       </h2>
-      <p style={{ fontSize: '16px', color: '#555' }}>
-        We'll redirect you to Google after submission.
+      <p className="email-caption">
+        We'll redirect you to the Spotify login after submission.
       </p>
-      <input
-        type="email"
-        placeholder="Your email address"
-        value={email}
-        onChange={handleEmailChange}
-        style={inputStyles}
-      />
-      <button className="submit-button" onClick={handleSubmit} style={buttonStyles}>
-        Submit
-      </button>
+      <form onSubmit={(e) => {e.preventDefault()}}>
+        <input className="email-input" type="email" placeholder="Your email address" value={email} onChange={handleEmailChange}/>
+        <input className="submit-button" type="submit" value="Submit" onClick={handleSubmit}/>
+      </form>
       {isSubmitted && (
-        <p style={submittedStyles}>Submitted Email: {submittedEmail}</p>
+        <p className="submitted">
+          Submitted Email: {submittedEmail}
+        </p>
       )}
     </div>
-  );
+  )
 }
 
-export default EmailInput;
+export default EmailInput
