@@ -42,10 +42,10 @@ function YourArtists() {
         <div className="artist-boxes">
           {data &&
             data.results.map((artistData, index) => (
+              artistData.concerts && artistData.concerts.length > 0 && (
               <div key={index}>
-                {artistData.concerts && artistData.concerts.length > 0 && (
                   <div>
-                    <h2>Artist: {artistData.artist}</h2>
+                    <h2 className='artist-header'>Artist: {artistData.artist}</h2>
                     <ul className="artist-ul">
                       {artistData.concerts.map((concert, concertIndex) => (
                         concert && (
@@ -62,8 +62,8 @@ function YourArtists() {
                       ))}
                     </ul>
                   </div>
-                )}
               </div>
+              )
             ))}
         </div>
       )}
