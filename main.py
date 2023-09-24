@@ -92,7 +92,7 @@ def callback():
     AUTHORIZATION_HEADER[email] = authorization_header
     print(AUTHORIZATION_HEADER)
 
-    # upsertUser(email)
+    upsertUser(email)
 
     # return userID
     return redirect("http://localhost:3000/yourArtists")
@@ -102,8 +102,8 @@ def callback():
 def getYourArtists():
     email = request.args.get('email')
     authorization_header = AUTHORIZATION_HEADER[email]
-    res = getTopArtists(authorization_header)
-    # print(res)
+    # res = getTopArtists(authorization_header)
+    res = getEventsWithFriends(email)
     return res
 
 
@@ -132,11 +132,12 @@ def upsertUser(userId):
         profile_response = requests.get(
             user_profile_api_endpoint, headers=AUTHORIZATION_HEADER[userId])
         profile_data = json.loads(profile_response.text)
-
+        top_artists = [x['artist'] for x in getTopArtists(AUTHORIZATION_HEADER[userId])[
+            'results'] if len(x['concerts']) != 0]
         record = {"_id": userId,
                   "name": profile_data['display_name'],
                   "friends": [],
-                  "top_artists": getTopArtists(AUTHORIZATION_HEADER[userId])['results'],
+                  "top_artists": top_artists,
                   "state": "TX"}
 
         collection.insert_one(record)
@@ -148,23 +149,23 @@ def addFriend(userId, friendId):
         {"_id": userId}, {"$push": {"friends": friends.append(friendId)}})
 
 
-class Event:
-    def __init__(self, date, location, url, friends):
-        self.date = date
-        self.location = location
-        self.url = url
-        self.friends = friends
+# class Event:
+#     def __init__(self, date, location, url, friends, artist):
+#         self.date = date
+#         self.location = location
+#         self.url = url
+#         self.friends = friends
+#         self.artist = artist
 
 
 def getEventsWithFriends(userId):
-    events = []
+    res = []
     state = getStateFromDB(userId)
     for k, v in getOverlappingArtists(userId).items():
-        event = getSeatGeekData(k, state)
-        address = event['address'] + ', ' + \
-            event['city'] + ', ' + event['state']
-        events.append(Event(event['date'], address, event['url'], v))
-    return json.loads(events)
+        events = getSeatGeekData(k, state)
+        events['friends'] = v
+        res.append(events)
+    return {"results": res}
 
 
 def getOverlappingArtists(userId):
@@ -187,15 +188,15 @@ def getOverlappingArtists(userId):
 
 
 def getFriendsFromDB(userId):
-    return collection.find_one({"username": userId})['friends']
+    return collection.find_one({"_id": userId})['friends']
 
 
 def getTopArtistsFromDB(userId):
-    return collection.find_one({"username": userId})['top_artists']
+    return collection.find_one({"_id": userId})['top_artists']
 
 
 def getStateFromDB(userId):
-    return collection.find_one({"username": userId})['state']
+    return collection.find_one({"_id": userId})['state']
 
 
 if __name__ == "__main__":
