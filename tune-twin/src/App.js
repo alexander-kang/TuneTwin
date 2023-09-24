@@ -21,8 +21,6 @@ function App() {
         </MyProvider>}/>
         {/*<Route path="/dashboard" element={<dashboard/>}/>*/}
       </Routes>
-
-
     </div>
   )
 }
