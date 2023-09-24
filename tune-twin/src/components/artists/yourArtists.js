@@ -12,7 +12,6 @@ function YourArtists() {
       .then((response) => response.json())
       .then((data) => {
         setData(data);
-        console.log(data)
         setLoading(false); // Set loading to false when data is fetched
       })
       .catch((error) => {
@@ -100,7 +99,7 @@ function YourArtists() {
                 {artistData.concerts && artistData.concerts.length > 0 && (
                   <div>
                     <h2>Artist: {artistData.artist}</h2>
-                    {/* <ul>
+                    <ul>
                       {artistData.concerts.map((concert, concertIndex) => (
                         concert && (
                           <li key={concertIndex}>
@@ -114,7 +113,7 @@ function YourArtists() {
                           </li>
                         )
                       ))}
-                    </ul> */}
+                    </ul>
                   </div>
                 )}
               </div>
