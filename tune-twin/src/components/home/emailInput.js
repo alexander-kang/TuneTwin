@@ -17,18 +17,28 @@ function EmailInput() {
     updateEmail('');
     // Mark the email as submitted
     setIsSubmitted(true);
-    sessionStorage.setItem('email',  email);
+    sessionStorage.setItem('email', email);
 
     // Redirect the user to Google
     window.location.href = `http://127.0.0.1:8080/?email=${email}`;
   };
 
+  const containerStyles = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh', // Center vertically
+    textAlign: 'center',
+  };
+
   const inputStyles = {
     width: '100%',
+    maxWidth: '300px', // Make the box wider
     padding: '10px',
     marginTop: '10px',
     border: '1px solid #ccc',
-    borderRadius: '5px',
+    borderRadius: '30px',
     fontSize: '16px',
   };
 
@@ -36,13 +46,16 @@ function EmailInput() {
     display: 'inline-block',
     marginTop: '10px',
     padding: '10px 20px',
-    backgroundColor: '#007bff',
+    backgroundColor: '#1DB954', // Change button color
     color: '#fff',
     border: 'none',
-    borderRadius: '5px',
+    borderRadius: '30px', // Increased border radius
     fontSize: '16px',
     cursor: 'pointer',
+    height: '40px', // Set the button height
+    width: '200px', // Let the button width adjust to content
   };
+  
 
   const submittedStyles = {
     marginTop: '20px',
@@ -52,7 +65,7 @@ function EmailInput() {
   };
 
   return (
-    <div>
+    <div style={containerStyles}>
       <h2 style={{ fontSize: '24px', marginBottom: '10px', color: '#333' }}>
         Enter Your Email
       </h2>
