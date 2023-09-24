@@ -5,6 +5,8 @@ from urllib.parse import quote
 from api_keys import CLIENT_ID, CLIENT_SECRET
 from util.seatgeek import getSeatGeekData
 import concurrent.futures
+from pymongo.mongo_client import MongoClient
+import certifi
 
 
 # Authentication Steps, paramaters, and responses are defined at https://developer.spotify.com/web-api/authorization-guide/
@@ -28,6 +30,12 @@ STATE = ""
 SHOW_DIALOG_bool = True
 SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
 
+# MongoDB client
+uri = "mongodb+srv://user-2:TyTQwfZWAcUi89Am@tunetwin.mwfk7r0.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp"
+client = MongoClient(uri, tlsCAFile=certifi.where())
+db = client['TuneTwin']
+collection = db['Users']
+
 
 auth_query_parameters = {
     "response_type": "code",
@@ -48,9 +56,6 @@ def index():
                         for key, val in auth_query_parameters.items()])
     auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
     return redirect(auth_url)
-
-
-
 
 
 @app.route("/callback/q")
@@ -89,21 +94,22 @@ def callback():
     # return userID
     return redirect("https://www.google.com/")
 
+
 @app.route("/getYourArtists")
 def getYourArtists():
     email = request.args.get('email')
     authorization_header = AUTHORIZATION_HEADER[email]
+    return getTopArtists(authorization_header)
 
+
+def getTopArtists(auth_header):
     # Get user artist data
     user_top_artists_api_endpoint = "{}/me/top/artists".format(SPOTIFY_API_URL)
     top_artists_response = requests.get(
-        user_top_artists_api_endpoint, headers=authorization_header)
-    # print(top_artists_response.text)
+        user_top_artists_api_endpoint, headers=auth_header)
+
     top_artists_data = json.loads(top_artists_response.text)
 
-    # Combine profile and playlist data to display
-    # display_arr = [profile_data] + \
-    #     playlist_data["items"] + top_artists_data["items"]
     display_arr = [t['name'] for t in top_artists_data["items"]]
     num_threads = 4
     state = ["TX"]*len(display_arr)
@@ -114,6 +120,77 @@ def getYourArtists():
     return {"results": results}
 
 
+def upsertUser(userId):
+    if (collection.find_one({"username": userId}) == None):
+        # Get profile data
+        user_profile_api_endpoint = "{}/me".format(SPOTIFY_API_URL)
+        profile_response = requests.get(
+            user_profile_api_endpoint, headers=AUTHORIZATION_HEADER[userId])
+        profile_data = json.loads(profile_response.text)
+
+        record = {"_id": userId,
+                  "name": profile_data['display_name'],
+                  "friends": [],
+                  "top_artists": getTopArtists(AUTHORIZATION_HEADER[userId])['results'],
+                  "state": "CA"}
+
+        collection.insert_one(record)
+
+
+def addFriend(userId, friendId):
+    friends = getFriendsFromDB(userId)
+    collection.update_one(
+        {"_id": userId}, {"$push": {"friends": friends.append(friendId)}})
+
+
+class Event:
+    def __init__(self, date, location, url, friends):
+        self.date = date
+        self.location = location
+        self.url = url
+        self.friends = friends
+
+
+def getEventsWithFriends(userId):
+    events = []
+    state = getStateFromDB(userId)
+    for k, v in getOverlappingArtists(userId).items():
+        event = getSeatGeekData(k, state)
+        address = event['address'] + ', ' + \
+            event['city'] + ', ' + event['state']
+        events.append(Event(event['date'], address, event['url'], v))
+    return json.loads(events)
+
+
+def getOverlappingArtists(userId):
+    # get friends
+    friends = getFriendsFromDB(userId)
+    # get artists
+    ta_set = set(getTopArtistsFromDB(userId))
+    artists = {}
+    # for every friend
+    for f in friends:
+        # find overlap, add to dictionary
+        intersection = ta_set.intersection(set(getTopArtistsFromDB(f)))
+        for artist in intersection:
+            if artist in artists:
+                artists[artist].append(f)
+            else:
+                artists[artist] = [f]
+    # return dictionary
+    return artists
+
+
+def getFriendsFromDB(userId):
+    return collection.find_one({"username": userId})['friends']
+
+
+def getTopArtistsFromDB(userId):
+    return collection.find_one({"username": userId})['top_artists']
+
+
+def getStateFromDB(userId):
+    return collection.find_one({"username": userId})['state']
 
 
 if __name__ == "__main__":
