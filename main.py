@@ -92,6 +92,8 @@ def callback():
     AUTHORIZATION_HEADER[email] = authorization_header
     print(AUTHORIZATION_HEADER)
 
+    upsertUser(email)
+
     # return userID
     return redirect("http://localhost:3000/yourArtists")
 
@@ -101,7 +103,7 @@ def getYourArtists():
     email = request.args.get('email')
     authorization_header = AUTHORIZATION_HEADER[email]
     res = getTopArtists(authorization_header)
-    print(res)
+    # print(res)
     return res
 
 
@@ -124,7 +126,7 @@ def getTopArtists(auth_header):
 
 
 def upsertUser(userId):
-    if (collection.find_one({"username": userId}) == None):
+    if (collection.find_one({"_id": userId}) == None):
         # Get profile data
         user_profile_api_endpoint = "{}/me".format(SPOTIFY_API_URL)
         profile_response = requests.get(

@@ -2,17 +2,17 @@ import React from 'react'
 import NavBarSignedIn from '../navBar/navBarSignedIn'
 import ContinueButton from './continueButton'
 import Footer from '../footer/footer'
-import concert from '../../assets/concert.jpg'
+import concert from '../../assets/concert1.jpeg'
 import './home.css'
 
 const LandingPageSignedIn = () => {
     return (
         <div>
-            <NavBarSignedIn/>
+            <NavBarSignedIn />
 
             <div className="home-content">
                 <div className="home-content-flex">
-                    <img src={concert} alt="Live music event"/>
+                    <img src={concert} alt="Live music event" />
 
                     <p>Find live music events with your friends!</p>
                 </div>
@@ -20,9 +20,9 @@ const LandingPageSignedIn = () => {
                 <p className="body-text">Add friends on TuneTwin to find live music events compatible with your group's music tastes near you!</p>
             </div>
 
-            <ContinueButton/>
+            <ContinueButton />
 
-            <Footer/>
+            <Footer />
         </div>
     )
 }

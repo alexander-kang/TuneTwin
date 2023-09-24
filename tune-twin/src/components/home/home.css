@@ -1,6 +1,7 @@
 body {
     padding-left: 15%;
     padding-right: 15%;
+    min-height: 100vh;
 }
 
 .home-content {
@@ -12,26 +13,33 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    margin-top: 5%;
 }
 
 .home-content-flex p {
     font-size: 30px;
+    padding-right: 10%;
 }
 
 .home-content-flex img {
     border-radius: 10px;
-    width: 350px;
+    width: 60vh;
     height: auto;
+    margin: 0% 10% 0% 10%;
+    box-shadow: -5px 5px 10px #1DB954;
 }
 
 .body-text {
     text-align: center;
+    margin-top: 5%;
+    padding: 0% 10% 0% 10%;
 }
 
 .button-content {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 5% 0% 5% 0%;
 }
 
 .btn {
