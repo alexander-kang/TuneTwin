@@ -2,6 +2,7 @@ import React from 'react'
 import NavBarSignedIn from '../navBar/navBarSignedIn'
 import ContinueButton from './continueButton'
 import Footer from '../footer/footer'
+import './home.css'
 
 const LandingPageSignedIn = () => {
     return (
@@ -10,7 +11,7 @@ const LandingPageSignedIn = () => {
 
             <div className="home-content">
                 <div className="home-content-flex">
-                    <img src="" alt=""/>
+                    <img src="../../../assets/concert.jpg" alt="Live music event"/>
 
                     <p>Find live music events with your friends!</p>
                 </div>

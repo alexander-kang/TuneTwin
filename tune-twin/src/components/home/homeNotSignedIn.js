@@ -2,6 +2,8 @@ import React from 'react'
 import NavBarNotSignedIn from '../navBar/navBarNotSignedIn'
 import LoginButton from './loginButton'
 import Footer from '../footer/footer'
+import concert from '../../assets/concert.jpg'
+import './home.css'
 
 const landingPageNotSignedIn = () => {
     return (
@@ -10,8 +12,7 @@ const landingPageNotSignedIn = () => {
 
             <div className="home-content">
                 <div className="home-content-flex">
-                    <img src="" alt=""/>
-
+                    <img src={concert} alt="Live music event"/>
                     <p>Find live music events with your friends!</p>
                 </div>
 
