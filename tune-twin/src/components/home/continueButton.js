@@ -1,15 +1,15 @@
-import { Link } from 'react-router-dom'
-import { Button } from 'react-native'
+import { useNavigate } from 'react-router-dom'
+import './home.css'
 
 const ContinueButton = () => {
-    function handleContinue() {
-        <Link to="/dashboard"></Link>
-    }
+    const navigate = useNavigate()
 
     return (
-        <Button onclick={handleContinue}>
-            Continue
-        </Button>
+        <div className="button-content">
+            <button className="btn" onClick={navigate("/dashboard")}>
+                Continue
+            </button>
+        </div>
     )
 
 }

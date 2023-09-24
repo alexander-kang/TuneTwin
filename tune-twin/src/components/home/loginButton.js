@@ -6,8 +6,8 @@ const LoginButton = () => {
     }
 
     return (
-        <div class="button-content">
-            <button class="btn" onclick={handleLogin}>
+        <div className="button-content">
+            <button className="btn" onClick={handleLogin}>
                 Sign Into Spotify
             </button>
         </div>
