@@ -1,0 +1,32 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.navbar-left {
+    font-size: 30px;
+}
+
+.navbar-right {
+    margin-left: auto;
+    font-size: 18px;
+}
+
+.navbar-right a {
+    text-decoration: none;
+    color: #191414;
+}
+
+.navbar-right a:visited {
+    color: inherit;
+}
+
+.navbar-right:hover {
+    color: #1DB954;
+}
+
+.navbar-right:active {
+    color: #1DB954;
+    text-decoration: underline;
+}

@@ -1,0 +1,14 @@
+.home-content-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.home-content-flex p {
+    font-size: 30px;
+}
+
+.home-content-flex img {
+    width: 350px;
+    height: auto;
+}
