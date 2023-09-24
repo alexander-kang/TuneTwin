@@ -102,7 +102,13 @@ def callback():
 def getYourArtists():
     email = request.args.get('email')
     authorization_header = AUTHORIZATION_HEADER[email]
-    # res = getTopArtists(authorization_header)
+    res = getTopArtists(authorization_header)
+    return res
+
+
+@app.route("/getOverlappingArtists")
+def getOverlappingArtists():
+    email = request.args.get('email')
     res = getEventsWithFriends(email)
     return res
 

@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import ArtistConcert from './artistCard'
+import OverlapArtistConcert from './overlapArtistCard'
 import NavBarSignedIn from '../navBar/navBarSignedIn'
 import Footer from '../footer/footer'
 import './artist.css'
 
-function YourArtists() {
+function OverlappingArtists() {
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const email = sessionStorage.getItem('email');
 
-        fetch(`http://127.0.0.1:8080/getYourArtists?email=${email}`)
+        fetch(`http://127.0.0.1:8080/getOverlappingArtists?email=${email}`)
             .then((response) => response.json())
             .then((data) => {
                 setData(data);
+                console.log(data)
                 setLoading(false); // Set loading to false when data is fetched
             })
             .catch((error) => {
@@ -25,8 +26,7 @@ function YourArtists() {
 
     return (
         <div>
-            <NavBarSignedIn status="yourArtists" />
-
+            <NavBarSignedIn status="overlappingArtists" />
             {loading ? (
                 <div className="loading-indicator">
                     {/* Display an animated loading circle */}
@@ -50,12 +50,13 @@ function YourArtists() {
                                             {artistData.concerts.map((concert, concertIndex) => (
                                                 concert && (
                                                     <li className="artist-li" key={concertIndex}>
-                                                        <ArtistConcert
+                                                        <OverlapArtistConcert
                                                             city={concert.city}
                                                             date={concert.date}
                                                             address={concert.address}
                                                             state={concert.state}
                                                             link={concert.url}
+                                                            friends={['isaac', 'alex']}
                                                         />
                                                     </li>
                                                 )
@@ -73,4 +74,4 @@ function YourArtists() {
     );
 }
 
-export default YourArtists
+export default OverlappingArtists

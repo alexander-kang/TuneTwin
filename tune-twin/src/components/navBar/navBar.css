@@ -56,3 +56,36 @@
     color: #1DB954;
     text-decoration: underline;
 }
+
+.toggle-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    margin-top: 10px;
+    text-decoration: none;
+    background-color: white;
+    color: #1DB954;
+    padding: 10px 20px;
+    text-align: center;
+    font-weight: bold;
+    border-color: #191414;
+    width: 30vh;
+}
+
+#yourArtistsBtn {
+    border-radius: 5px 0px 0px 5px;
+    margin-right: -2px;
+}
+
+#overlappingArtistsBtn {
+    border-radius: 0px 5px 5px 0px;
+    margin-left: -2px;
+}
+
+.active {
+    background-color: #1DB954;
+    color: white;
+}
