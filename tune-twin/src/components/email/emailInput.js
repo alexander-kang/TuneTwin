@@ -3,7 +3,7 @@ import { EmailContext } from './emailContext';
 import './email.css'
 
 function EmailInput() {
-  const { email, updateEmail } = useContext(EmailContext);
+  const { email, updateEmail,  updateIsSignedIn } = useContext(EmailContext);
   const [submittedEmail, setSubmittedEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -16,9 +16,10 @@ function EmailInput() {
     setSubmittedEmail(email);
     // Clear the email input
     updateEmail('');
+    updateIsSignedIn();
     // Mark the email as submitted
     setIsSubmitted(true);
-    sessionStorage.setItem('email',  email);
+    sessionStorage.setItem('email', email);
 
     // Redirect the user to next page
     window.location.href = `http://127.0.0.1:8080/?email=${email}`;

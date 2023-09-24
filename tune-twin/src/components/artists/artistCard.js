@@ -24,7 +24,7 @@ const linkStyles = {
   display: 'block',
   marginTop: '10px',
   textDecoration: 'none',
-  backgroundColor: '#007bff',
+  backgroundColor: '#1DB954', // Change to green color
   color: '#fff',
   padding: '10px 20px',
   borderRadius: '5px',
@@ -34,8 +34,8 @@ const linkStyles = {
 
 function ArtistConcert({ city, date, address, state, link }) {
   return (
-    <div style={artistConcertStyles}>
-      <h2 style={headingStyles}>Concert Details:</h2>
+    <div style={{ ...artistConcertStyles, borderColor: '#1DB954' }}>
+      <h2 style={{ ...headingStyles, color: '#1DB954' }}>Concert Details:</h2>
       <p style={infoStyles}>City: {city}</p>
       <p style={infoStyles}>Date: {date}</p>
       <p style={infoStyles}>Address: {address}</p>
