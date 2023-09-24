@@ -17,6 +17,7 @@ function EmailInput() {
     updateEmail('');
     // Mark the email as submitted
     setIsSubmitted(true);
+    sessionStorage.setItem('email',  email);
 
     // Redirect the user to Google
     window.location.href = `http://127.0.0.1:8080/?email=${email}`;

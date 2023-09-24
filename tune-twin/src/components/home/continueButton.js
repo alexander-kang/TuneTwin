@@ -1,3 +1,4 @@
+
 import { useNavigate } from 'react-router-dom'
 import './home.css'
 
@@ -8,6 +9,7 @@ const ContinueButton = () => {
     }
 
     return (
+
         <div className="button-content">
             <button className="btn" onClick={navContinue}>
                 Continue
