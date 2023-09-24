@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Button } from 'react-native'
+// import { Button } from 'react-native'
 
 const ContinueButton = () => {
     function handleContinue() {
@@ -7,9 +7,9 @@ const ContinueButton = () => {
     }
 
     return (
-        <Button onclick={handleContinue}>
+        <button onclick={handleContinue}>
             Continue
-        </Button>
+        </button>
     )
 
 }

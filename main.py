@@ -7,11 +7,12 @@ from util.seatgeek import getSeatGeekData
 import concurrent.futures
 from pymongo.mongo_client import MongoClient
 import certifi
-
+from flask_cors import CORS  # Import Flask-CORS
 
 # Authentication Steps, paramaters, and responses are defined at https://developer.spotify.com/web-api/authorization-guide/
 # Visit this url to see all the steps, parameters, and expected response.
 app = Flask(__name__)
+CORS(app)  # Enable CORS for the entire app
 
 # Spotify URLS
 SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
@@ -92,14 +93,16 @@ def callback():
     print(AUTHORIZATION_HEADER)
 
     # return userID
-    return redirect("https://www.google.com/")
+    return redirect("http://localhost:3000/")
 
 
 @app.route("/getYourArtists")
 def getYourArtists():
     email = request.args.get('email')
     authorization_header = AUTHORIZATION_HEADER[email]
-    return getTopArtists(authorization_header)
+    res = getTopArtists(authorization_header)
+    print(res)
+    return res
 
 
 def getTopArtists(auth_header):
@@ -132,7 +135,7 @@ def upsertUser(userId):
                   "name": profile_data['display_name'],
                   "friends": [],
                   "top_artists": getTopArtists(AUTHORIZATION_HEADER[userId])['results'],
-                  "state": "CA"}
+                  "state": "TX"}
 
         collection.insert_one(record)
 
