@@ -13,11 +13,24 @@
     padding: 10px 0px 0px 10px;
 }
 
-.navbar-left {
-    font-size: 30px;
+.navbar-signedin {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.navbar-signedin img {
+    width: 170px;
+    height: auto;
+    padding: 10px 0px 0px 10px;
 }
 
 .navbar-left:hover {
+    cursor: pointer;
+}
+
+.navbar-center {
     cursor: pointer;
 }
 

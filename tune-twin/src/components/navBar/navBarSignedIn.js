@@ -10,8 +10,8 @@ const NavBarSignedIn = () => {
     }
 
     return (
-        <nav className="navbar">
-            <div className="navbar-left" onClick={navHome}>
+        <nav className="navbar-signedin">
+            <div className="navbar-center" onClick={navHome}>
                 <img src={logo} alt="Live music event" />
             </div>
         </nav>

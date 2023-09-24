@@ -1,55 +1,19 @@
-import React from 'react';
-
-const artistConcertStyles = {
-  border: '1px solid #ddd',
-  padding: '20px',
-  marginBottom: '20px',
-  borderRadius: '5px',
-  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-  backgroundColor: '#fff',
-};
-
-const headingStyles = {
-  fontSize: '20px',
-  marginBottom: '10px',
-  color: '#333',
-};
-
-const infoStyles = {
-  marginBottom: '5px',
-  color: '#666',
-};
-
-const linkStyles = {
-  display: 'block',
-  marginTop: '10px',
-  textDecoration: 'none',
-  backgroundColor: '#1DB954', // Change to green color
-  color: '#fff',
-  padding: '10px 20px',
-  borderRadius: '5px',
-  textAlign: 'center',
-  fontWeight: 'bold',
-};
+import React from 'react'
+import './artist.css'
 
 function ArtistConcert({ city, date, address, state, link }) {
   return (
-    <div style={{ ...artistConcertStyles, borderColor: '#1DB954' }}>
-      <h2 style={{ ...headingStyles, color: '#1DB954' }}>Concert Details:</h2>
-      <p style={infoStyles}>City: {city}</p>
-      <p style={infoStyles}>Date: {date}</p>
-      <p style={infoStyles}>Address: {address}</p>
-      <p style={infoStyles}>State: {state}</p>
-      <a
-        href={link}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={linkStyles}
-      >
+    <div className="artist-concert">
+      <h2 className="artist-heading">Concert Details:</h2>
+      <p className="artist-info">City: {city}</p>
+      <p className="artist-info">Date: {date}</p>
+      <p className="artist-info">Address: {address}</p>
+      <p className="artist-info">State: {state}</p>
+      <a href={link} target="_blank" rel="noopener noreferrer" className="artist-link">
         Get Tickets
       </a>
     </div>
-  );
+  )
 }
 
-export default ArtistConcert;
+export default ArtistConcert

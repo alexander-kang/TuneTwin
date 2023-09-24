@@ -1,5 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { EmailContext } from './emailContext';
+import NavBarSignedIn from '../navBar/navBarSignedIn';
+import Footer from '../footer/footer';
+import './email.css'
 
 function EmailInput() {
   const { email, updateEmail,  updateIsSignedIn } = useContext(EmailContext);
@@ -20,74 +23,35 @@ function EmailInput() {
     setIsSubmitted(true);
     sessionStorage.setItem('email', email);
 
-    // Redirect the user to Google
+    // Redirect the user to next page
     window.location.href = `http://127.0.0.1:8080/?email=${email}`;
-  };
-
-  const containerStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh', // Center vertically
-    textAlign: 'center',
-  };
-
-  const inputStyles = {
-    width: '100%',
-    maxWidth: '300px', // Make the box wider
-    padding: '10px',
-    marginTop: '10px',
-    border: '1px solid #ccc',
-    borderRadius: '30px',
-    fontSize: '16px',
-  };
-
-  const buttonStyles = {
-    display: 'inline-block',
-    marginTop: '10px',
-    padding: '10px 20px',
-    backgroundColor: '#1DB954', // Change button color
-    color: '#fff',
-    border: 'none',
-    borderRadius: '30px', // Increased border radius
-    fontSize: '16px',
-    cursor: 'pointer',
-    height: '40px', // Set the button height
-    width: '200px', // Let the button width adjust to content
-  };
-  
-
-  const submittedStyles = {
-    marginTop: '20px',
-    fontSize: '16px',
-    color: '#333',
-    fontWeight: 'bold',
-  };
+  }
 
   return (
-    <div style={containerStyles}>
-      <h2 style={{ fontSize: '24px', marginBottom: '10px', color: '#333' }}>
-        Enter Your Email
-      </h2>
-      <p style={{ fontSize: '16px', color: '#555' }}>
-        We'll redirect you to Spotify after you submission.
-      </p>
-      <input
-        type="email"
-        placeholder="Your email address"
-        value={email}
-        onChange={handleEmailChange}
-        style={inputStyles}
-      />
-      <button className="submit-button" onClick={handleSubmit} style={buttonStyles}>
-        Submit
-      </button>
-      {isSubmitted && (
-        <p style={submittedStyles}>Submitted Email: {submittedEmail}</p>
-      )}
+    <div>
+      <NavBarSignedIn/>
+
+      <div className="email-content">
+        <h2>
+          Enter Your Email
+        </h2>
+        <p className="email-caption">
+          We'll redirect you to the Spotify login after submission.
+        </p>
+        <form onSubmit={(e) => {e.preventDefault()}}>
+          <input className="email-input" type="email" placeholder="Your email address" value={email} onChange={handleEmailChange}/>
+          <input className="submit-button" type="submit" value="Submit" onClick={handleSubmit}/>
+        </form>
+        {isSubmitted && (
+          <p className="submitted">
+            Submitted Email: {submittedEmail}
+          </p>
+        )}
+      </div>
+
+      <Footer/>
     </div>
-  );
+  )
 }
 
-export default EmailInput;
+export default EmailInput
