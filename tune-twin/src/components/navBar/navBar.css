@@ -1,7 +1,10 @@
 .navbar {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .navbar-left {
@@ -22,11 +25,11 @@
     color: inherit;
 }
 
-.navbar-right:hover {
+.navbar-right a:hover {
     color: #1DB954;
 }
 
-.navbar-right:active {
+.navbar-right a:active {
     color: #1DB954;
     text-decoration: underline;
 }

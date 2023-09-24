@@ -1,4 +1,5 @@
-// import { Button } from 'react-native'
+
+import './home.css'
 
 const LoginButton = () => {
     function handleLogin() {
@@ -6,9 +7,12 @@ const LoginButton = () => {
     }
 
     return (
-        <button onclick={handleLogin}>
-            Sign Into Spotify
-        </button>
+
+        <div class="button-content">
+            <button class="btn" onclick={handleLogin}>
+                Sign Into Spotify
+            </button>
+        </div>
     )
 }
 

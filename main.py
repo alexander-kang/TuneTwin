@@ -93,7 +93,7 @@ def callback():
     print(AUTHORIZATION_HEADER)
 
     # return userID
-    return redirect("http://localhost:3000/")
+    return redirect("http://localhost:3000/yourArtists")
 
 
 @app.route("/getYourArtists")
