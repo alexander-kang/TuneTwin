@@ -7,6 +7,12 @@
     padding-bottom: 10px;
 }
 
+.navbar img {
+    width: 170px;
+    height: auto;
+    padding: 10px 0px 0px 10px;
+}
+
 .navbar-left {
     font-size: 30px;
 }
