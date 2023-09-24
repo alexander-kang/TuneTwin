@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { EmailContext } from './emailContext';
+import NavBarSignedIn from '../navBar/navBarSignedIn';
+import Footer from '../footer/footer';
 import './email.css'
 
 function EmailInput() {
@@ -26,22 +28,28 @@ function EmailInput() {
   }
 
   return (
-    <div className="email-content">
-      <h2>
-        Enter Your Email
-      </h2>
-      <p className="email-caption">
-        We'll redirect you to the Spotify login after submission.
-      </p>
-      <form onSubmit={(e) => {e.preventDefault()}}>
-        <input className="email-input" type="email" placeholder="Your email address" value={email} onChange={handleEmailChange}/>
-        <input className="submit-button" type="submit" value="Submit" onClick={handleSubmit}/>
-      </form>
-      {isSubmitted && (
-        <p className="submitted">
-          Submitted Email: {submittedEmail}
+    <div>
+      <NavBarSignedIn/>
+
+      <div className="email-content">
+        <h2>
+          Enter Your Email
+        </h2>
+        <p className="email-caption">
+          We'll redirect you to the Spotify login after submission.
         </p>
-      )}
+        <form onSubmit={(e) => {e.preventDefault()}}>
+          <input className="email-input" type="email" placeholder="Your email address" value={email} onChange={handleEmailChange}/>
+          <input className="submit-button" type="submit" value="Submit" onClick={handleSubmit}/>
+        </form>
+        {isSubmitted && (
+          <p className="submitted">
+            Submitted Email: {submittedEmail}
+          </p>
+        )}
+      </div>
+
+      <Footer/>
     </div>
   )
 }
