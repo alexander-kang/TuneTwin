@@ -28,18 +28,21 @@ STATE = ""
 SHOW_DIALOG_bool = True
 SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
 
+
 auth_query_parameters = {
     "response_type": "code",
     "redirect_uri": REDIRECT_URI,
     "scope": SCOPE,
     # "state": STATE,
     # "show_dialog": SHOW_DIALOG_str,
-    "client_id": CLIENT_ID
+    "client_id": CLIENT_ID,
 }
 
 
 @app.route("/")
 def index():
+    global email
+    email = request.args.get('email')
     # Auth Step 1: Authorization
     url_args = "&".join(["{}={}".format(key, quote(val))
                         for key, val in auth_query_parameters.items()])
@@ -62,6 +65,7 @@ def callback():
         'client_secret': CLIENT_SECRET,
     }
     post_request = requests.post(SPOTIFY_TOKEN_URL, data=code_payload)
+    # print(post_request.json())
 
     # Auth Step 5: Tokens are Returned to Application
     response_data = json.loads(post_request.text)
@@ -78,23 +82,23 @@ def callback():
     profile_response = requests.get(
         user_profile_api_endpoint, headers=authorization_header)
     profile_data = json.loads(profile_response.text)
-    userID = profile_data["id"]
     global AUTHORIZATION_HEADER
-    AUTHORIZATION_HEADER[userID] = authorization_header
+    AUTHORIZATION_HEADER[email] = authorization_header
     print(AUTHORIZATION_HEADER)
 
-    return userID
+    # return userID
+    return redirect("https://www.google.com/")
 
 @app.route("/getYourArtists")
 def getYourArtists():
-    id = request.args.get('id')
-    authorization_header = AUTHORIZATION_HEADER[id]
+    email = request.args.get('email')
+    authorization_header = AUTHORIZATION_HEADER[email]
 
     # Get user artist data
     user_top_artists_api_endpoint = "{}/me/top/artists".format(SPOTIFY_API_URL)
     top_artists_response = requests.get(
         user_top_artists_api_endpoint, headers=authorization_header)
-    print(top_artists_response.text)
+    # print(top_artists_response.text)
     top_artists_data = json.loads(top_artists_response.text)
 
     # Combine profile and playlist data to display
