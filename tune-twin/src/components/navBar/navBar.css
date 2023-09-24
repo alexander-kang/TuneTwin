@@ -11,6 +11,10 @@
     font-size: 30px;
 }
 
+.navbar-left:hover {
+    cursor: pointer;
+}
+
 .navbar-right {
     margin-left: auto;
     font-size: 18px;

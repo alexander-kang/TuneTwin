@@ -46,3 +46,7 @@ body {
     display: inline-flex;
     align-items: flex-end;
 }
+
+.btn:hover {
+    cursor: pointer;
+}
