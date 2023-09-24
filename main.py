@@ -1,5 +1,5 @@
 import json
-from flask import Flask, request, redirect, g, render_template
+from flask import Flask, request, redirect, jsonify
 import requests
 from urllib.parse import quote
 from api_keys import CLIENT_ID, CLIENT_SECRET
@@ -12,7 +12,18 @@ from flask_cors import CORS  # Import Flask-CORS
 # Authentication Steps, paramaters, and responses are defined at https://developer.spotify.com/web-api/authorization-guide/
 # Visit this url to see all the steps, parameters, and expected response.
 app = Flask(__name__)
-CORS(app)  # Enable CORS for the entire app
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
+
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers',
+                         'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods',
+                         'GET,PUT,POST,DELETE,OPTIONS')
+    return response
+
 
 # Spotify URLS
 SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
@@ -90,7 +101,7 @@ def callback():
     profile_data = json.loads(profile_response.text)
     global AUTHORIZATION_HEADER
     AUTHORIZATION_HEADER[email] = authorization_header
-    print(AUTHORIZATION_HEADER)
+    # print(AUTHORIZATION_HEADER)
 
     upsertUser(email)
 
@@ -109,7 +120,10 @@ def getYourArtists():
 @app.route("/getOverlappingArtists")
 def getOverlappingArtists():
     email = request.args.get('email')
-    res = getEventsWithFriends(email)
+    if email is not None:
+        res = getEventsWithFriends(email)
+    else:
+        res = {"results": []}
     return res
 
 
@@ -149,10 +163,31 @@ def upsertUser(userId):
         collection.insert_one(record)
 
 
-def addFriend(userId, friendId):
-    friends = getFriendsFromDB(userId)
-    collection.update_one(
-        {"_id": userId}, {"$push": {"friends": friends.append(friendId)}})
+# @app.after_request
+# def handle_options(response):
+#     response.headers["Access-Control-Allow-Origin"] = "*"
+#     response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+#     response.headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
+
+#     return response
+
+
+@app.route("/addFriend", methods=['POST'])
+def addFriend():
+    data = request.get_json()
+    if data and data['email'] and data['friendEmail']:
+        userId = data['email']
+        friendId = data['friendEmail']
+        # print(friendId)
+        # friends = getFriendsFromDB(userId)
+        # print(friends)
+        # friends.append(friendId)
+        try:
+            collection.update_one(
+                {"_id": userId}, {"$addToSet": {"friends": friendId}})
+            return jsonify(({'response': f'Added friend: {friendId}'}), 200)
+        except:
+            return jsonify(({'error': 'Error'}), 400)
 
 
 # class Event:

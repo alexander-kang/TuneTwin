@@ -2,7 +2,6 @@ import React from 'react'
 import './artist.css'
 
 function OverlapArtistConcert({ city, date, address, state, link, friends }) {
-    console.log(friends)
     return (
         <div className="artist-concert">
             <h2 className="artist-heading">Concert Details:</h2>

@@ -3,10 +3,12 @@ import OverlapArtistConcert from './overlapArtistCard'
 import NavBarSignedIn from '../navBar/navBarSignedIn'
 import Footer from '../footer/footer'
 import './artist.css'
+import AddFriend from '../friend/addFriend'
 
 function OverlappingArtists() {
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [callback, setCallback] = useState(false)
 
     useEffect(() => {
         const email = sessionStorage.getItem('email');
@@ -21,17 +23,18 @@ function OverlappingArtists() {
                 console.error('There was a problem with the fetch operation:', error);
                 setLoading(false); // Set loading to false on error
             });
-    }, []);
+    }, [callback]);
 
     return (
         <div>
             <NavBarSignedIn status="overlappingArtists" />
+            <AddFriend callback={callback} callbackFn={setCallback} />
             {loading ? (
                 <div className="loading-indicator">
                     {/* Display an animated loading circle */}
                     <div className="loader"></div>
                     <div className="loading-text">
-                        Fetching your artists data
+                        Fetching common artist data
                         <span>.</span>
                         <span>.</span>
                         <span>.</span>
@@ -44,7 +47,7 @@ function OverlappingArtists() {
                             <div key={index}>
                                 {artistData.concerts && artistData.concerts.length > 0 && (
                                     <div>
-                                        <h2>Artist: {artistData.artist}</h2>
+                                        <h2 className='artist-header'>Artist: {artistData.artist}</h2>
                                         <ul className="artist-ul">
                                             {artistData.concerts.map((concert, concertIndex) => (
                                                 concert && (
