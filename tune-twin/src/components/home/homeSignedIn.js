@@ -2,7 +2,7 @@ import React from 'react'
 import NavBarSignedIn from '../navBar/navBarSignedIn'
 import ContinueButton from './continueButton'
 import Footer from '../footer/footer'
-import concert from '../../assets/concert1.jpeg'
+import concert from '../../assets/concert.jpeg'
 import './home.css'
 
 const LandingPageSignedIn = () => {
