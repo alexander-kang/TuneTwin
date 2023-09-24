@@ -2,7 +2,7 @@ import React from 'react'
 import NavBarNotSignedIn from '../navBar/navBarNotSignedIn'
 import LoginButton from './loginButton'
 import Footer from '../footer/footer'
-import concert from '../../assets/concert1.jpeg'
+import concert from '../../assets/concert.jpeg'
 import './home.css'
 
 const LandingPageNotSignedIn = () => {
