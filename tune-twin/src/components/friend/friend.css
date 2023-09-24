@@ -1,0 +1,17 @@
+.add-friend {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-color: #1DB954;
+    width: 400px;
+}
+
+.friend-heading {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+    color: #1DB954;
+}
