@@ -2,9 +2,9 @@ import { React, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import LandingPageSignedIn from './components/home/homeSignedIn'
 import LandingPageNotSignedIn from './components/home/homeNotSignedIn'
-import EmailInput from './components/home/emailInput'
-import { MyProvider } from './components/home/emailContext'
-import YourArtists from './components/home/yourArtists'
+import EmailInput from './components/email/emailInput'
+import { MyProvider } from './components/email/emailContext'
+import YourArtists from './components/artists/yourArtists'
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false)
