@@ -71,7 +71,7 @@ function EmailInput() {
         Enter Your Email
       </h2>
       <p style={{ fontSize: '16px', color: '#555' }}>
-        We'll redirect you to Google after submission.
+        We'll redirect you to Spotify after you submission.
       </p>
       <input
         type="email"

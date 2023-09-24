@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { EmailContext } from './emailContext';
+import { EmailContext } from '../email/emailContext';
 import LandingPageSignedIn from './homeSignedIn';
 import LandingPageNotSignedIn from './homeNotSignedIn';
 
