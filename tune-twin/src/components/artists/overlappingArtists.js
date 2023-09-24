@@ -15,7 +15,6 @@ function OverlappingArtists() {
             .then((response) => response.json())
             .then((data) => {
                 setData(data);
-                console.log(data)
                 setLoading(false); // Set loading to false when data is fetched
             })
             .catch((error) => {
@@ -56,7 +55,7 @@ function OverlappingArtists() {
                                                             address={concert.address}
                                                             state={concert.state}
                                                             link={concert.url}
-                                                            friends={['isaac', 'alex']}
+                                                            friends={artistData.friends}
                                                         />
                                                     </li>
                                                 )

@@ -27,46 +27,46 @@ function YourArtists() {
         <div>
             <NavBarSignedIn status="yourArtists" />
 
-            {loading ? (
-                <div className="loading-indicator">
-                    {/* Display an animated loading circle */}
-                    <div className="loader"></div>
-                    <div className="loading-text">
-                        Fetching your artists data
-                        <span>.</span>
-                        <span>.</span>
-                        <span>.</span>
-                    </div>
-                </div>
-            ) : (
-                <div className="artist-boxes">
-                    {data &&
-                        data.results.map((artistData, index) => (
-                            <div key={index}>
-                                {artistData.concerts && artistData.concerts.length > 0 && (
-                                    <div>
-                                        <h2>Artist: {artistData.artist}</h2>
-                                        <ul className="artist-ul">
-                                            {artistData.concerts.map((concert, concertIndex) => (
-                                                concert && (
-                                                    <li className="artist-li" key={concertIndex}>
-                                                        <ArtistConcert
-                                                            city={concert.city}
-                                                            date={concert.date}
-                                                            address={concert.address}
-                                                            state={concert.state}
-                                                            link={concert.url}
-                                                        />
-                                                    </li>
-                                                )
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                </div>
-            )}
+      {loading ? (
+        <div className="loading-indicator">
+          {/* Display an animated loading circle */}
+          <div className="loader"></div>
+          <div className="loading-text">
+            Fetching your artists data
+            <span>.</span>
+            <span>.</span>
+            <span>.</span>
+          </div>
+        </div>
+      ) : (
+        <div className="artist-boxes">
+          {data &&
+            data.results.map((artistData, index) => (
+              artistData.concerts && artistData.concerts.length > 0 && (
+              <div key={index}>
+                  <div>
+                    <h2 className='artist-header'>Artist: {artistData.artist}</h2>
+                    <ul className="artist-ul">
+                      {artistData.concerts.map((concert, concertIndex) => (
+                        concert && (
+                          <li className="artist-li" key={concertIndex}>
+                            <ArtistConcert
+                              city={concert.city}
+                              date={concert.date}
+                              address={concert.address}
+                              state={concert.state}
+                              link={concert.url}
+                            />
+                          </li>
+                        )
+                      ))}
+                    </ul>
+                  </div>
+              </div>
+              )
+            ))}
+        </div>
+      )}
 
             <Footer />
         </div>

@@ -14,7 +14,7 @@ function OverlapArtistConcert({ city, date, address, state, link, friends }) {
                 Get Tickets
             </a>
             {friends && friends.length > 0 &&
-                <p>{friends.join(',')}</p>
+                <p className="artist-info">Shared friends: {friends.join(',')}</p>
                 // friends.map((item, index) => {
                 // console.log(item)
                 //     return <p key={index}>{friends.join(',')}</p>
