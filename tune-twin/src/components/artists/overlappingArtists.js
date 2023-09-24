@@ -31,7 +31,7 @@ function OverlappingArtists() {
                     {/* Display an animated loading circle */}
                     <div className="loader"></div>
                     <div className="loading-text">
-                        Fetching your artists data
+                        Fetching artists data
                         <span>.</span>
                         <span>.</span>
                         <span>.</span>

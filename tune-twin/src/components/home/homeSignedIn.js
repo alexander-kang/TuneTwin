@@ -1,5 +1,5 @@
 import React from 'react'
-import NavBarSignedIn from '../navBar/navBarSignedIn'
+import NavBarSignedInNoToggle from '../navBar/navBarSignedInNoToggle'
 import ContinueButton from './continueButton'
 import Footer from '../footer/footer'
 import concert from '../../assets/concert.jpeg'
@@ -8,7 +8,7 @@ import './home.css'
 const LandingPageSignedIn = () => {
     return (
         <div>
-            <NavBarSignedIn />
+            <NavBarSignedInNoToggle />
 
             <div className="home-content">
                 <div className="home-content-flex">

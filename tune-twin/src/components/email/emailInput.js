@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { EmailContext } from './emailContext';
-import NavBarSignedIn from '../navBar/navBarSignedIn';
+import NavBarSignedInNoToggle from '../navBar/navBarSignedInNoToggle';
 import Footer from '../footer/footer';
 import './email.css'
 
@@ -29,7 +29,7 @@ function EmailInput() {
 
   return (
     <div>
-      <NavBarSignedIn/>
+      <NavBarSignedInNoToggle/>
 
       <div className="email-content">
         <h2>
