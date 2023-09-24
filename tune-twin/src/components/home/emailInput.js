@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { EmailContext } from './emailContext';
 
 function EmailInput() {
-  const { email, updateEmail } = useContext(EmailContext);
+  const { email, updateEmail,  updateIsSignedIn } = useContext(EmailContext);
   const [submittedEmail, setSubmittedEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -15,6 +15,7 @@ function EmailInput() {
     setSubmittedEmail(email);
     // Clear the email input
     updateEmail('');
+    updateIsSignedIn();
     // Mark the email as submitted
     setIsSubmitted(true);
     sessionStorage.setItem('email', email);

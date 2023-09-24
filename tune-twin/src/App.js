@@ -5,6 +5,7 @@ import LandingPageNotSignedIn from './components/home/homeNotSignedIn'
 import EmailInput from './components/home/emailInput'
 import { MyProvider } from './components/home/emailContext'
 import YourArtists from './components/home/yourArtists'
+import Welcome from './components/home/welcome'
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false)
@@ -12,7 +13,10 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={isSignedIn ? <LandingPageSignedIn/> : <LandingPageNotSignedIn/>}/>
+        
+        <Route path="/" element={<MyProvider>
+          <Welcome/>
+        </MyProvider>}/>
         <Route path="/email" element={<MyProvider>
           <EmailInput/>
         </MyProvider>}/>
