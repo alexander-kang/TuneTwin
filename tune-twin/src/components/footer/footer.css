@@ -1,0 +1,36 @@
+hr {
+    margin-left: 15%;
+    margin-right: 15%;
+    border: none;
+    border-top: 1px solid rgba(171, 165, 168, 0.8);
+    height: 0px;
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.footer-content a {
+    text-decoration: underline;
+    color: #191414;
+}
+
+.footer-content a:visited {
+    color: inherit;
+}
+
+.footer-content a:hover {
+    color: #1DB954;
+}
+
+.footer-content a:active {
+    color: #1DB954;
+    text-decoration: underline;
+}
+
+.footer-right {
+    margin-left: auto;
+}

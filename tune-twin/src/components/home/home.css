@@ -1,7 +1,17 @@
+body {
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.home-content {
+    display: flex;
+    flex-direction: column;
+}
+
 .home-content-flex {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .home-content-flex p {
@@ -9,6 +19,30 @@
 }
 
 .home-content-flex img {
+    border-radius: 10px;
     width: 350px;
     height: auto;
+}
+
+.body-text {
+    text-align: center;
+}
+
+.button-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    background: #1DB954;
+    color: black;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 30px;
+    font-size: 18px;
+    height: 40px;
+    width: auto;
+    display: inline-flex;
+    align-items: flex-end;
 }

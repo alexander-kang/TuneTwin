@@ -5,7 +5,7 @@ import Footer from '../footer/footer'
 import concert from '../../assets/concert.jpg'
 import './home.css'
 
-const landingPageNotSignedIn = () => {
+const LandingPageNotSignedIn = () => {
     return (
         <div>
             <NavBarNotSignedIn/>
@@ -13,10 +13,11 @@ const landingPageNotSignedIn = () => {
             <div className="home-content">
                 <div className="home-content-flex">
                     <img src={concert} alt="Live music event"/>
+
                     <p>Find live music events with your friends!</p>
                 </div>
 
-                <p>Log into your Spotify account and add friends on TuneTwin to find live music events compatible with your group's music tastes near you!</p>
+                <p className="body-text">Log into your Spotify account and add friends on TuneTwin to find live music events compatible with your group's music tastes near you!</p>
             </div>
 
             <LoginButton/>
@@ -26,4 +27,4 @@ const landingPageNotSignedIn = () => {
     )
 }
 
-export default landingPageNotSignedIn
+export default LandingPageNotSignedIn
